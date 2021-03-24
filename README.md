@@ -5,6 +5,10 @@ Use JavaScript to implement CSS `background-size: cover`
 ## Usage
 
 ```html
+<div class="test-block">
+  <img src="test.jpg" alt="" class="test-img">
+</div>
+
 <script src="path/to/jquery"></script>
 <script src="path/to/kover.js"></script>
 <script>
