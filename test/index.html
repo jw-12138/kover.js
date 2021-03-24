@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kover.js test</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="test-block">
+    <img src="test.jpg" alt="" class="test-img">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@1.9.1/jquery.min.js"></script>
+  <script src="ie9.min.js"></script>
+  <script src="../dist/kover.js"></script>
+  <script>
+    $(function () {
+      $.kover({
+        wrapCell: '.test-block'
+      })
+    })
+  </script>
+</body>
+</html>

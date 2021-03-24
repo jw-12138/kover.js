@@ -1,0 +1,33 @@
+{
+  "name": "kover.js",
+  "version": "1.0.0",
+  "description": "\"Use JavaScript to implement CSS `background-size: cover`\"",
+  "main": "dist/kover.js",
+  "scripts": {
+    "dev": "npx babel --verbose ./src -w -d ./dist -s",
+    "build": "concurrently npm:build-*",
+    "build-js": "npx babel --verbose ./src -d ./dist -s",
+    "build-minified": "npx minify ./dist/kover.js  > ./dist/kover.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jw-12138/kover.js.git"
+  },
+  "keywords": [
+    "Javascript",
+    "CSS3"
+  ],
+  "author": "Jacky Wong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jw-12138/kover.js/issues"
+  },
+  "homepage": "https://github.com/jw-12138/kover.js#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.12",
+    "concurrently": "^6.0.0",
+    "minify": "^7.0.1"
+  }
+}

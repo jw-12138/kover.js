@@ -1,0 +1,11 @@
+body{
+  overflow: auto;
+}
+
+.test-block{
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  height: 350px;
+  overflow: hidden;
+}
