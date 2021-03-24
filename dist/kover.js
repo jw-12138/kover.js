@@ -3,96 +3,94 @@
 ;
 
 (function (w, $) {
-  var kover = function kover(obj) {
-    var _ = this;
-
-    _.getNatural = function (DOMelement) {
+  $.fn.kover = function () {
+    // global function : get natural image size
+    var getNatural = function getNatural(DOMelement) {
       var img = new Image();
       img.src = DOMelement.src;
       return {
         width: img.width,
         height: img.height
       };
-    };
+    }; // define each instance
 
-    _.init = function (fn) {
-      if (!obj) {
-        throw 'kover.js: A wrap cell is required!';
-      }
 
-      _.wrapCell = $(obj.wrapCell);
+    return this.each(function () {
+      var _ = this;
 
-      if (_.wrapCell.find('img').length > 1) {
-        throw 'kover.js: multiple images detected! One cell can only contain one image, same as in CSS.';
-      }
+      _.init = function () {
+        if (!_) {
+          throw 'kover.js: A wrap cell is required!';
+        }
 
-      _.img = _.wrapCell.find('img');
-      _.minWidth = obj.minWidth || null;
-      _.maxWidth = obj.maxWidth || null;
-      _.ratio = null;
+        if ($('img', $(_)).length > 1) {
+          throw 'kover.js: multiple images detected! One cell can contain only one image, same as in CSS.';
+        } // find the image inside
 
-      w.onresize = function () {
-        _.resized();
-      };
 
-      var onload_fn = function onload_fn() {
-        _.img_size = _.getNatural(_.img.get(0));
-        _.ratio = _.img_size.height / _.img_size.width;
+        _.img = $('img', $(_)); // define default image ratio
 
-        _.calcStyle();
-      };
+        _.ratio = null; // resize event
 
-      w.onload = function () {
-        onload_fn();
-      };
-    };
+        $(window, $(_)).on('resize', function () {
+          _.calcStyle($(_), _.img, _.ratio);
+        }); // 
 
-    _.calcStyle = function () {
-      _.wrapCell.css({
-        position: 'relative'
-      });
+        var preload = new Image(),
+            path = _.img.get(0).src;
 
-      _.img.css({
-        position: 'absolute',
-        top: '50%',
-        zIndex: '0',
-        left: '50%',
-        width: '100%',
-        marginLeft: -(_.wrapCell.width() / 2) + 'px',
-        marginTop: -(_.img.height() / 2) + 'px',
-        height: 'auto'
-      });
+        preload.src = path + '?' + Math.random();
 
-      if (_.img.height() < _.wrapCell.height()) {
-        _.img.css({
-          maxWidth: 'none',
-          height: _.wrapCell.height(),
-          width: _.wrapCell.height() / _.ratio + 'px',
-          marginTop: -(_.wrapCell.height() / 2) + 'px',
-          marginLeft: -(_.img_size.width * _.ratio / 2) + 'px'
+        preload.onload = function () {
+          // whats gonna happen when a image is fully loaded
+          _.img_size = getNatural(preload);
+          _.ratio = _.img_size.height / _.img_size.width; // boost calculation for 1s, ie 7 sucks
+
+          var l = 1;
+          var time = 1000;
+          var _int = 10;
+          var s = setInterval(function () {
+            if (l * _int >= time) {
+              w.clearInterval(s);
+            }
+
+            _.calcStyle($(_), _.img, _.ratio);
+
+            l++;
+          }, _int);
+        };
+      }; // calculation function
+
+
+      _.calcStyle = function (wrapcell, img, r) {
+        // normal situration: static css will do the trick
+        wrapcell.css({
+          position: 'relative'
         });
-      }
-    };
+        img.css({
+          position: 'absolute',
+          zIndex: '0',
+          top: '50%',
+          left: '50%',
+          width: '100%',
+          marginLeft: -(wrapcell.width() / 2) + 'px',
+          marginTop: -(img.height() / 2) + 'px',
+          height: 'auto'
+        }); // this is where the magic happens, when the image height is lower than the container, we put the image height as same as the container. meanwhile, change the image width accordding to the original image ratio.
 
-    _.resized = function () {
-      if (_.minWidth && _.wrapCell.width() <= _.minWidth) {
-        _.calcStyle();
+        if (img.height() < wrapcell.height()) {
+          img.css({
+            maxWidth: 'none',
+            height: wrapcell.height(),
+            width: wrapcell.height() / r + 'px',
+            marginTop: -(wrapcell.height() / 2) + 'px',
+            marginLeft: -(wrapcell.height() / r / 2) + 'px'
+          });
+        }
+      };
 
-        _.img.css({
-          maxWidth: 'none',
-          width: _.minWidth + 'px',
-          left: '0',
-          marginTop: -(_.img.height() / 2) + 'px',
-          marginLeft: 0
-        });
-      } else {
-        _.calcStyle();
-      }
-    };
-
-    _.init();
+      _.init();
+    });
   };
-
-  $.kover = kover;
 })(window, jQuery);
 //# sourceMappingURL=kover.js.map

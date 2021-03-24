@@ -8,18 +8,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <h3>instance 1</h3>
   <div class="test-block">
+    <img src="test.jpg" alt="" class="test-img">
+  </div>
+  <h3>instance 2</h3>
+  <div class="test-block" style="height: 200px;">
     <img src="test.jpg" alt="" class="test-img">
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@1.9.1/jquery.min.js"></script>
   <script src="ie9.min.js"></script>
-  <script src="../dist/kover.js"></script>
+  <script src="../dist/kover.min.js"></script>
   <script>
     $(function () {
-      $.kover({
-        wrapCell: '.test-block'
-      })
+      $('.test-block').kover()
     })
   </script>
 </body>
