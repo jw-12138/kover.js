@@ -36,7 +36,7 @@
         preload.src = path + '?' + Math.random()
         preload.onload = function () {
 
-          // whats gonna happen when a image is fully loaded
+          // whats gonna happen when an image is fully loaded
           _.img_size = getNatural(preload)
           _.ratio = _.img_size.height / _.img_size.width
 
