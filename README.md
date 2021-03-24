@@ -13,9 +13,7 @@ Use JavaScript to implement CSS `background-size: cover`
 <script src="path/to/kover.js"></script>
 <script>
   $(function () {
-    $.kover({
-      wrapCell: '.test-block'
-    })
+    $('.test-block').kover()
   })
 </script>
 ```
