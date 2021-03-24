@@ -18,10 +18,10 @@ Use JavaScript to implement CSS `background-size: cover`
 
 ## Compatibility
 
----
-Chrome 1.0: ✅
-Firefox 3.5: ✅
-Opera 10: ✅
-Safari 3.1: ✅
-IE 7: ✅
----
+| Browsers | Version | Supported |
+| -------- | ------- | --------- |
+| Chrome   | 1.0     | ✅         |
+| Firefox  | 3.5     | ✅         |
+| Opera    | 10      | ✅         |
+| Safari   | 3.1     | ✅         |
+| IE       | 7       | ✅         |
